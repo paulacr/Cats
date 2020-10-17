@@ -90,7 +90,7 @@ dependencies {
     implementation "com.squareup.picasso:picasso:$picassoVersion"
 
     // Tests
-    testImplementation "junit:$jUnitVersion"
+    testImplementation "junit:junit:$jUnitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidTestJUnitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoCoreVersion"
 }

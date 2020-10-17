@@ -1,6 +1,5 @@
 package com.paulacr.cats.ui.list
 
-
 import android.util.Log
 import com.paulacr.cats.data.api.ApiService
 import com.paulacr.cats.ui.BaseViewModel
