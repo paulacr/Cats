@@ -1,5 +1,6 @@
 package com.paulacr.cats.di
 
+import com.paulacr.cats.data.api.ApiService
 import com.paulacr.cats.ui.list.CatsListViewModel
 import dagger.Module
 import dagger.Provides
@@ -8,7 +9,7 @@ import dagger.Provides
 class CatsListModule {
 
     @Provides
-    fun provideViewModel(): CatsListViewModel {
-        return CatsListViewModel()
+    fun provideViewModel(apiService: ApiService): CatsListViewModel {
+        return CatsListViewModel(apiService)
     }
 }
