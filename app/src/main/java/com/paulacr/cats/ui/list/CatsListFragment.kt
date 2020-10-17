@@ -6,14 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.paulacr.cats.R
 import com.paulacr.cats.databinding.FragmentCatsListBinding
-import com.paulacr.cats.ui.BaseFragment
+import com.paulacr.cats.ui.CatsApplication
+import javax.inject.Inject
 
-class CatsListFragment : BaseFragment<CatsListViewModel, FragmentCatsListBinding>() {
+class CatsListFragment : Fragment() {
 
-    override val viewModel: CatsListViewModel
-        get() = CatsListViewModel()
+    @Inject
+    lateinit var viewModel: CatsListViewModel
+    private lateinit var binding: FragmentCatsListBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        CatsApplication().appComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,6 +37,6 @@ class CatsListFragment : BaseFragment<CatsListViewModel, FragmentCatsListBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
-        Log.i("Current Fragment ", fragmentName)
+        Log.i("Log Current viewmodel ", viewModel.diTest)
     }
 }
