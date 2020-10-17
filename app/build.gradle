@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -69,6 +70,11 @@ dependencies {
     // Linters
     ktlint "com.github.shyiko:ktlint:$ktlintVersion"
 
+    // DI - Dagger
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    // Tests
     testImplementation "junit:$jUnitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidTestJUnitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoCoreVersion"
