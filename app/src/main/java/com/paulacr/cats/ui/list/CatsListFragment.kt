@@ -20,7 +20,7 @@ class CatsListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        CatsApplication().appComponent.inject(this)
+        (activity?.applicationContext as CatsApplication).appComponent.inject(this)
     }
 
     override fun onCreateView(
