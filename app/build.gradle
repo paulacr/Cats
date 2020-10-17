@@ -21,6 +21,9 @@ android {
             dataBinding true
             viewBinding true
         }
+
+        buildConfigField 'String', 'BASE_URL', '"https://api.thecatapi.com/v1/"'
+        buildConfigField 'String', 'API_KEY', "${project.properties['API_KEY']}"
     }
 
     buildTypes {
@@ -74,8 +77,20 @@ dependencies {
     implementation "com.google.dagger:dagger:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
+    // Http Requests
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$rxjavaAdapterVersion"
+    implementation "com.squareup.okhttp3:okhttp:$OkhttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$OkhttpVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rxjavaVersion"
+
+    // Image Loading
+    implementation "com.squareup.picasso:picasso:$picassoVersion"
+
     // Tests
-    testImplementation "junit:$jUnitVersion"
+    testImplementation "junit:junit:$jUnitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidTestJUnitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoCoreVersion"
 }
