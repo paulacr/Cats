@@ -1,6 +1,7 @@
 package com.paulacr.cats.di
 
 import com.paulacr.cats.data.api.ApiService
+import com.paulacr.cats.data.database.CatDao
 import com.paulacr.cats.data.repository.CatRepository
 import com.paulacr.cats.data.repository.CatRepositoryImpl
 import com.paulacr.cats.ui.list.CatsListViewModel
@@ -16,7 +17,7 @@ class CatsListModule {
     }
 
     @Provides
-    fun provideRepository(service: ApiService): CatRepository {
-        return CatRepositoryImpl(service)
+    fun provideRepository(service: ApiService, dao: CatDao): CatRepository {
+        return CatRepositoryImpl(service, dao)
     }
 }
