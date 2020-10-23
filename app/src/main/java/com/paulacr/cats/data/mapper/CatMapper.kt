@@ -4,27 +4,44 @@ import com.paulacr.cats.data.model.Breed
 import com.paulacr.cats.data.model.CatImage
 import com.paulacr.cats.data.model.CatImageResponse
 import com.paulacr.cats.data.model.Category
+import okhttp3.internal.toImmutableList
 
 class CatMapper {
 
     fun map(catImageResponse: CatImageResponse): CatImage {
 
-        val breeds = mutableListOf<Breed>()
-        val categories = mutableListOf<Category>()
-
-        catImageResponse.breedListResponse.forEach {
-            breeds.add(Breed(it.id, it.name, it.temperament))
-        }
-
-        catImageResponse.categoryListResponse.forEach {
-            categories.add(Category(it.id, it.name))
-        }
-
         return CatImage(
             catImageResponse.id,
             catImageResponse.url,
-            breeds.toList(),
-            categories.toList()
+            getBreeds(catImageResponse),
+            getCategories(catImageResponse)
         )
+    }
+
+    private fun getCategories(
+        catImageResponse: CatImageResponse
+    ): List<Category> {
+        val categories = mutableListOf<Category>()
+
+        if (catImageResponse.categoryListResponse?.isNotEmpty() == true) {
+            catImageResponse.categoryListResponse.forEach {
+                categories.add(Category(it.id, it.name))
+            }
+        }
+
+        return categories.toImmutableList()
+    }
+
+    private fun getBreeds(
+        catImageResponse: CatImageResponse
+    ): List<Breed> {
+        val breeds = mutableListOf<Breed>()
+
+        if (catImageResponse.breedListResponse?.isNotEmpty() == true) {
+            catImageResponse.breedListResponse.forEach {
+                breeds.add(Breed(it.id, it.name, it.temperament))
+            }
+        }
+        return breeds.toImmutableList()
     }
 }

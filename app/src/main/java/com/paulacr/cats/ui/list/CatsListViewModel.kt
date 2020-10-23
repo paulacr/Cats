@@ -4,8 +4,8 @@ import android.util.Log
 import com.paulacr.cats.data.repository.CatRepository
 import com.paulacr.cats.ui.BaseViewModel
 import com.paulacr.cats.utils.logError
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class CatsListViewModel @Inject constructor(private val repository: CatRepository) : BaseViewModel() {

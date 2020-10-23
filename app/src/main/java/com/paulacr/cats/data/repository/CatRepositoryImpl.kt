@@ -3,50 +3,41 @@ package com.paulacr.cats.data.repository
 import com.paulacr.cats.data.api.ApiService
 import com.paulacr.cats.data.database.CatDao
 import com.paulacr.cats.data.mapper.CatMapper
-import com.paulacr.cats.data.model.CatImageResponse
-import io.reactivex.rxjava3.core.Single
+import com.paulacr.cats.data.model.CatImage
+import com.paulacr.cats.data.settings.AppConfig
+import com.paulacr.cats.utils.logError
+import io.reactivex.Single
 import javax.inject.Inject
-import kotlin.random.Random
 
 class CatRepositoryImpl @Inject constructor(
     private val service: ApiService,
-    private val dao: CatDao
+    private val dao: CatDao,
+    private val catMapper: CatMapper,
+    private val appConfig: AppConfig
 ) : CatRepository {
 
-    private var shouldRefreshCatData = Random.nextBoolean()
-    private val catMapper = CatMapper()
-
-    override fun getRandomCat(): Single<CatImageResponse> =
-        service.getRandomCat().map { it.first() }
-
-    override fun getLocalRandomCat(): Single<CatImageResponse> {
-        TODO("Not yet implemented")
+    override fun getRandomCat(): Single<CatImage> {
+        return appConfig.shouldRefreshRemoteData()
+            .flatMap {
+                if (it) getRemoteRandomCat()
+                else Single.just(getLocalRandomCat())
+            }.onErrorResumeNext {
+                getRemoteRandomCat()
+            }
     }
 
-    override fun getRemoteRandomCat(): Single<CatImageResponse> {
+    override fun getLocalRandomCat(): CatImage = dao.getAll().random()
 
-        val remoteData = service.getRandomCat()
+    override fun getRemoteRandomCat(): Single<CatImage> =
+        service.getRandomCat()
+            .doOnError {
+                logError("Random cat remote:", it)
+            }
             .map {
                 it.first()
             }.flatMap {
                 val cat = catMapper.map(it)
-                // save data
-                dao.insertAll(cat)
-                Single.just(it)
+                dao.insert(cat)
+                Single.just(cat)
             }
-
-        val localData = getLocalRandomCat()
-            .onErrorResumeNext {
-                remoteData
-            }
-
-        return Single.just(shouldRefreshCatData)
-            .flatMap {
-                if (it) {
-                    remoteData
-                } else {
-                    localData
-                }
-            }
-    }
 }
