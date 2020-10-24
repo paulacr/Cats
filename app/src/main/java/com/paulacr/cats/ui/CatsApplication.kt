@@ -5,5 +5,6 @@ import com.paulacr.cats.di.ApplicationComponent
 import com.paulacr.cats.di.DaggerApplicationComponent
 
 class CatsApplication : Application() {
-    val appComponent: ApplicationComponent = DaggerApplicationComponent.create()
+    val appComponent: ApplicationComponent =
+        DaggerApplicationComponent.builder().application(this).build()
 }
