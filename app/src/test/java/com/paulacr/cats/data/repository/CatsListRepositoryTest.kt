@@ -51,9 +51,6 @@ class CatsListRepositoryTest {
 
     @Test
     fun shouldGetRemoteCatIfThereIsNoItemOnDatabaseWhenShouldGetFromRemoteFlagIsFalse() {
-
-        mockitoWhen(randomNumberMock.nextBoolean()).thenReturn(false)
-
         val catImage = CatImage("1", "http://someurl.com", emptyList(), emptyList())
         val catImageResponse = CatImageResponse("1", "http://someurl.com", emptyList(), emptyList())
 
@@ -84,9 +81,6 @@ class CatsListRepositoryTest {
 
     @Test
     fun shouldGetRemoteCatIfWhenShouldGetFromRemoteFlagIsTrue() {
-
-        mockitoWhen(randomNumberMock.nextBoolean()).thenReturn(true)
-
         val catImage = CatImage("1", "http://someurl.com", emptyList(), emptyList())
         val catImageResponse = CatImageResponse("1", "http://someurl.com", emptyList(), emptyList())
 
@@ -113,9 +107,6 @@ class CatsListRepositoryTest {
 
     @Test
     fun shouldSaveCatOnDBWhenShouldGetFromRemoteFlagIsTrue() {
-
-        mockitoWhen(randomNumberMock.nextBoolean()).thenReturn(true)
-
         val catImage = CatImage("1", "http://someurl.com", emptyList(), emptyList())
         val catImageResponse = CatImageResponse("1", "http://someurl.com", emptyList(), emptyList())
 
@@ -143,9 +134,6 @@ class CatsListRepositoryTest {
 
     @Test
     fun shouldGetRandomLocalCatWhenShouldGetFromRemoteFlagIsFalse() {
-
-        mockitoWhen(randomNumberMock.nextBoolean()).thenReturn(false)
-
         val catImage = CatImage("1", "http://someurl.com", emptyList(), emptyList())
 
         mockitoWhen(appConfig.shouldRefreshRemoteData()).thenReturn(
