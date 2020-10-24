@@ -23,12 +23,13 @@ class CatMapper {
     ): List<Category> {
         val categories = mutableListOf<Category>()
 
-        if (catImageResponse.categoryListResponse?.isNotEmpty() == true) {
-            catImageResponse.categoryListResponse.forEach {
-                categories.add(Category(it.id, it.name))
+        catImageResponse.categoryListResponse?.apply {
+            if (isNotEmpty()) {
+                catImageResponse.categoryListResponse.forEach {
+                    categories.add(Category(it.id, it.name))
+                }
             }
         }
-
         return categories.toImmutableList()
     }
 
@@ -37,9 +38,11 @@ class CatMapper {
     ): List<Breed> {
         val breeds = mutableListOf<Breed>()
 
-        if (catImageResponse.breedListResponse?.isNotEmpty() == true) {
-            catImageResponse.breedListResponse.forEach {
-                breeds.add(Breed(it.id, it.name, it.temperament))
+        catImageResponse.breedListResponse?.apply {
+            if (isNotEmpty()) {
+                catImageResponse.breedListResponse.forEach {
+                    breeds.add(Breed(it.id, it.name, it.temperament))
+                }
             }
         }
         return breeds.toImmutableList()

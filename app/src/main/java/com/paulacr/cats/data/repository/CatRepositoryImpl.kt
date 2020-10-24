@@ -32,8 +32,7 @@ class CatRepositoryImpl @Inject constructor(
         service.getRandomCat()
             .doOnError {
                 logError("Random cat remote:", it)
-            }
-            .map {
+            }.map {
                 it.first()
             }.flatMap {
                 val cat = catMapper.map(it)
