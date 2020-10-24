@@ -21,3 +21,5 @@ jobs:
         run: ./gradlew build
       - name: Kotlin Linter
         run: ./gradlew ktlint
+      - name: Unit Test task
+        run: ./gradlew testDebug
