@@ -45,18 +45,39 @@ android {
     }
 }
 
-task ktlint(type: JavaExec, group: "verification") {
-    description = "Check Kotlin code style."
-    classpath = configurations.ktlint
-    main = "com.github.shyiko.ktlint.Main"
-    args "src/**/*.kt"
-}
+ktlint {
+    version.set("0.22.0")
+    debug.set(true)
+    verbose.set(true)
+    android.set(false)
+    outputToConsole.set(true)
+    outputColorName.set("RED")
+    ignoreFailures.set(true)
+    enableExperimentalRules.set(true)
+    additionalEditorconfigFile.set(file("/some/additional/.editorconfig"))
+    disabledRules.set(setOf("final-newline"))
+    reporters {
+        reporter(ReporterType.PLAIN)
+        reporter(ReporterType.CHECKSTYLE)
 
-task ktlintFormat(type: JavaExec, group: "formatting") {
-    description = "Fix Kotlin code style deviations."
-    classpath = configurations.ktlint
-    main = "com.github.shyiko.ktlint.Main"
-    args "-F", "src/**/*.kt"
+        customReporters {
+            register("csv") {
+                fileExtension = "csv"
+                dependency = project(":project-reporters:csv-reporter")
+            }
+            register("yaml") {
+                fileExtension = "yml"
+                dependency = "com.example:ktlint-yaml-reporter:1.0.0"
+            }
+        }
+    }
+    kotlinScriptAdditionalPaths {
+        include(fileTree("scripts/"))
+    }
+    filter {
+        exclude("**/generated/**")
+        include("**/kotlin/**")
+    }
 }
 
 dependencies {
@@ -92,6 +113,10 @@ dependencies {
 
     // Image Loading
     implementation "com.squareup.picasso:picasso:$picassoVersion"
+
+    ktlintRuleset("com.github.username:rulseset:master-SNAPSHOT")
+    ktlintRuleset(files("/path/to/custom/rulseset.jar"))
+    ktlintRuleset(project(":chore:project-ruleset"))
 
     // Tests
     testImplementation "junit:junit:$jUnitVersion"

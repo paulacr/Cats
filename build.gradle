@@ -5,7 +5,7 @@ buildscript {
     ext.appCompatVersion = '1.2.0'
     ext.materialDesignVersion = '1.2.1'
     ext.constraintLayoutVersion = '2.0.2'
-    ext.ktlintVersion = '0.29.0'
+    ext.ktlintVersion = '9.2.1'
     ext.jUnitVersion = '4.13.1'
     ext.androidTestJUnitVersion = '1.1.2'
     ext.espressoCoreVersion = '3.3.0'
@@ -22,17 +22,30 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
-    dependencies {
+    dependencies {repositories {
+        google()
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+        dependencies {
+            classpath "com.android.tools.build:gradle:4.1.0"
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+            classpath "org.jlleitschuh.gradle:ktlint-gradle:$ktlintVersion"
+        }
         classpath "com.android.tools.build:gradle:4.1.0"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:$ktlintVersion"
     }
 }
 
 allprojects {
+    apply plugin: "org.jlleitschuh.gradle.ktlint"
     repositories {
         google()
         jcenter()
