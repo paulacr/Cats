@@ -25,27 +25,16 @@ buildscript {
         maven {
             url "https://plugins.gradle.org/m2/"
         }
-    }
-    dependencies {repositories {
-        google()
-        jcenter()
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-    }
+
         dependencies {
             classpath "com.android.tools.build:gradle:4.1.0"
             classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
             classpath "org.jlleitschuh.gradle:ktlint-gradle:$ktlintVersion"
         }
-        classpath "com.android.tools.build:gradle:4.1.0"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath "org.jlleitschuh.gradle:ktlint-gradle:$ktlintVersion"
     }
 }
 
 allprojects {
-    apply plugin: "org.jlleitschuh.gradle.ktlint"
     repositories {
         google()
         jcenter()

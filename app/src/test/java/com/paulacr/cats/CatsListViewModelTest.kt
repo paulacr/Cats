@@ -9,8 +9,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 import org.mockito.Mockito.`when` as mockitoWhen
+import org.mockito.MockitoAnnotations
 
 class CatsListViewModelTest {
 

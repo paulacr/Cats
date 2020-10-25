@@ -20,6 +20,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
       - name: Kotlin Linter
-        run: ./gradlew ktlint
+        run: ./gradlew ktlintCheck
       - name: Unit Test task
         run: ./gradlew testDebug

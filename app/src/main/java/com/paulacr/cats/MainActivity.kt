@@ -1,7 +1,7 @@
 package com.paulacr.cats
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.paulacr.cats.ui.CatsApplication
 import com.paulacr.cats.ui.list.CatsListFragment
 

@@ -1,9 +1,9 @@
 package com.paulacr.cats.data
 
 import com.paulacr.cats.BuildConfig
+import javax.inject.Inject
 import okhttp3.Interceptor
 import okhttp3.Response
-import javax.inject.Inject
 
 class CatsInterceptor @Inject constructor() : Interceptor {
 
