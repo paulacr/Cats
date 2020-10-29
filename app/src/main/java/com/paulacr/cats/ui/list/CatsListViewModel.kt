@@ -8,7 +8,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class CatsListViewModel @Inject constructor(private val repository: CatRepository) : BaseViewModel() {
+class CatsListViewModel @Inject constructor(private val repository: CatRepository) :
+    BaseViewModel() {
 
     fun getRandomCat() =
         repository.getRandomCat()

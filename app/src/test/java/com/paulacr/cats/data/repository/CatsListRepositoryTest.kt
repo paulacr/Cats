@@ -9,19 +9,19 @@ import com.paulacr.cats.data.model.CatImageResponse
 import com.paulacr.cats.data.settings.AppConfig
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
+import kotlin.NoSuchElementException
+import kotlin.random.Random
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.`when` as mockitoWhen
 import org.mockito.Mockito.never
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
-import kotlin.NoSuchElementException
-import kotlin.random.Random
-import org.mockito.Mockito.`when` as mockitoWhen
 
 @RunWith(MockitoJUnitRunner::class)
 class CatsListRepositoryTest {

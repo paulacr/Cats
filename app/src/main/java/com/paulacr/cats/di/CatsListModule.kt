@@ -20,7 +20,12 @@ class CatsListModule {
     }
 
     @Provides
-    fun provideRepository(service: ApiService, dao: CatDao, catsMapper: CatMapper, appConfig: AppConfig): CatRepository {
+    fun provideRepository(
+        service: ApiService,
+        dao: CatDao,
+        catsMapper: CatMapper,
+        appConfig: AppConfig
+    ): CatRepository {
         return CatRepositoryImpl(service, dao, catsMapper, appConfig)
     }
 
