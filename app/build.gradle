@@ -70,8 +70,9 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
 
-    // Image Loading
+    // Imaging
     implementation "com.squareup.picasso:picasso:$picassoVersion"
+    implementation "de.hdodenhof:circleimageview:$circleImageViewVersion"
 
     // Tests
     testImplementation "junit:junit:$jUnitVersion"

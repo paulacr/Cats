@@ -18,6 +18,7 @@ buildscript {
     ext.picassoVersion = "1.0.0"
     ext.roomVersion = "2.2.5"
     ext.mockitoVersion = "2.23.0"
+    ext.circleImageViewVersion = "3.1.0"
 
     repositories {
         google()
