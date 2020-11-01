@@ -17,7 +17,7 @@ interface CatDao {
     fun insert(cat: CatImage): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg cat: CatImage): List<Long>
+    fun insertAll(cat: List<CatImage>): List<Long>
 
     @Delete
     fun delete(user: CatImage)

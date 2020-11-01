@@ -60,7 +60,7 @@ dependencies {
     // Http Requests
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    implementation "com.squareup.retrofit2:adapter-rxjava:$RxJavaAdapterVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$RxJavaAdapterVersion"
     implementation "com.squareup.okhttp3:okhttp:$OkhttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$OkhttpVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"

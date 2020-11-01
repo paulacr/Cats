@@ -31,12 +31,26 @@ class CatRepositoryImpl @Inject constructor(
     override fun getRemoteRandomCat(): Single<CatImage> =
         service.getRandomCat()
             .doOnError {
-                logError("Random cat remote:", it)
+                logError("Random cat remote error:", it)
             }.map {
                 it.first()
             }.flatMap {
                 val cat = catMapper.map(it)
                 dao.insert(cat)
                 Single.just(cat)
+            }
+
+    override fun getCatsList(limit: Int, page: Int): Single<List<CatImage>> =
+        service.getRandomCat(limit, page)
+            .doOnError {
+                logError("Cats list remote error:", it)
+            }.flatMap { catsListResponse ->
+                val catsList: MutableList<CatImage> = mutableListOf()
+                catsListResponse.forEach {
+                    catsList.add(catMapper.map(it))
+                }
+
+                if (catsList.isNotEmpty()) dao.insertAll(catsList)
+                Single.just(catsList)
             }
 }

@@ -10,4 +10,6 @@ interface CatRepository {
     fun getLocalRandomCat(): CatImage
 
     fun getRemoteRandomCat(): Single<CatImage>
+
+    fun getCatsList(limit: Int, page: Int): Single<List<CatImage>>
 }

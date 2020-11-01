@@ -1,14 +1,17 @@
 package com.paulacr.cats.ui.list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.paulacr.cats.R
 import com.paulacr.cats.databinding.FragmentCatsListBinding
 import com.paulacr.cats.ui.CatsApplication
+import com.paulacr.cats.ui.ViewState
 import javax.inject.Inject
 
 class CatsListFragment : Fragment() {
@@ -36,6 +39,20 @@ class CatsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
-        viewModel.getRandomCat()
+        setupObservers()
+        viewModel.getCatsList()
+    }
+
+    private fun setupObservers() {
+        viewModel.catsListLiveData.observe(viewLifecycleOwner, Observer {
+
+            when (it) {
+                is ViewState.Success -> {
+                    Log.i("Log cats", "-> $it.data")
+                }
+                is ViewState.Failure -> {}
+                else -> {}
+            }
+        })
     }
 }
