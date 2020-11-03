@@ -4,7 +4,7 @@ import com.paulacr.cats.RxRule
 import com.paulacr.cats.data.api.ApiService
 import com.paulacr.cats.data.database.CatDao
 import com.paulacr.cats.data.mapper.CatMapper
-import com.paulacr.cats.data.model.CatImage
+import com.paulacr.cats.data.model.Cat
 import com.paulacr.cats.data.model.CatImageResponse
 import com.paulacr.cats.data.settings.AppConfig
 import io.reactivex.Single
@@ -51,7 +51,7 @@ class CatsListRepositoryTest {
 
     @Test
     fun shouldGetRemoteCatIfThereIsNoItemOnDatabaseWhenShouldGetFromRemoteFlagIsFalse() {
-        val catImage = CatImage("1", "http://someurl.com", emptyList(), emptyList())
+        val catImage = Cat("1", "http://someurl.com", emptyList(), emptyList())
         val catImageResponse = CatImageResponse("1", "http://someurl.com", emptyList(), emptyList())
 
         mockitoWhen(appConfig.shouldRefreshRemoteData()).thenReturn(
@@ -67,11 +67,11 @@ class CatsListRepositoryTest {
             Single.just(listOf(catImageResponse)))
 
         val result = repository.getRandomCat()
-        val testObserver: TestObserver<CatImage> = TestObserver()
+        val testObserver: TestObserver<Cat> = TestObserver()
         result.subscribe(testObserver)
 
         testObserver
-            .assertValue(CatImage("1", "http://someurl.com", emptyList(), emptyList()))
+            .assertValue(Cat("1", "http://someurl.com", emptyList(), emptyList()))
             .assertComplete()
 
         verify(catDao).getAll()
@@ -81,7 +81,7 @@ class CatsListRepositoryTest {
 
     @Test
     fun shouldGetRemoteCatIfWhenShouldGetFromRemoteFlagIsTrue() {
-        val catImage = CatImage("1", "http://someurl.com", emptyList(), emptyList())
+        val catImage = Cat("1", "http://someurl.com", emptyList(), emptyList())
         val catImageResponse = CatImageResponse("1", "http://someurl.com", emptyList(), emptyList())
 
         mockitoWhen(appConfig.shouldRefreshRemoteData()).thenReturn(
@@ -94,11 +94,11 @@ class CatsListRepositoryTest {
             Single.just(listOf(catImageResponse)))
 
         val result = repository.getRandomCat()
-        val testObserver: TestObserver<CatImage> = TestObserver()
+        val testObserver: TestObserver<Cat> = TestObserver()
         result.subscribe(testObserver)
 
         testObserver
-            .assertValue(CatImage("1", "http://someurl.com", emptyList(), emptyList()))
+            .assertValue(Cat("1", "http://someurl.com", emptyList(), emptyList()))
             .assertComplete()
 
         verify(catDao, never()).getAll()
@@ -107,7 +107,7 @@ class CatsListRepositoryTest {
 
     @Test
     fun shouldSaveCatOnDBWhenShouldGetFromRemoteFlagIsTrue() {
-        val catImage = CatImage("1", "http://someurl.com", emptyList(), emptyList())
+        val catImage = Cat("1", "http://someurl.com", emptyList(), emptyList())
         val catImageResponse = CatImageResponse("1", "http://someurl.com", emptyList(), emptyList())
 
         mockitoWhen(appConfig.shouldRefreshRemoteData()).thenReturn(
@@ -120,11 +120,11 @@ class CatsListRepositoryTest {
             Single.just(listOf(catImageResponse)))
 
         val result = repository.getRandomCat()
-        val testObserver: TestObserver<CatImage> = TestObserver()
+        val testObserver: TestObserver<Cat> = TestObserver()
         result.subscribe(testObserver)
 
         testObserver
-            .assertValue(CatImage("1", "http://someurl.com", emptyList(), emptyList()))
+            .assertValue(Cat("1", "http://someurl.com", emptyList(), emptyList()))
             .assertComplete()
 
         verify(catDao, never()).getAll()
@@ -134,7 +134,7 @@ class CatsListRepositoryTest {
 
     @Test
     fun shouldGetRandomLocalCatWhenShouldGetFromRemoteFlagIsFalse() {
-        val catImage = CatImage("1", "http://someurl.com", emptyList(), emptyList())
+        val catImage = Cat("1", "http://someurl.com", emptyList(), emptyList())
 
         mockitoWhen(appConfig.shouldRefreshRemoteData()).thenReturn(
             Single.just(false))
@@ -143,11 +143,11 @@ class CatsListRepositoryTest {
             listOf(catImage))
 
         val result = repository.getRandomCat()
-        val testObserver: TestObserver<CatImage> = TestObserver()
+        val testObserver: TestObserver<Cat> = TestObserver()
         result.subscribe(testObserver)
 
         testObserver
-            .assertValue(CatImage("1", "http://someurl.com", emptyList(), emptyList()))
+            .assertValue(Cat("1", "http://someurl.com", emptyList(), emptyList()))
             .assertComplete()
 
         verify(catDao).getAll()

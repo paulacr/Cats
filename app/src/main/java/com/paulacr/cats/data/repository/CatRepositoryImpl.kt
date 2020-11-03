@@ -3,7 +3,7 @@ package com.paulacr.cats.data.repository
 import com.paulacr.cats.data.api.ApiService
 import com.paulacr.cats.data.database.CatDao
 import com.paulacr.cats.data.mapper.CatMapper
-import com.paulacr.cats.data.model.CatImage
+import com.paulacr.cats.data.model.Cat
 import com.paulacr.cats.data.settings.AppConfig
 import com.paulacr.cats.utils.logError
 import io.reactivex.Single
@@ -16,7 +16,7 @@ class CatRepositoryImpl @Inject constructor(
     private val appConfig: AppConfig
 ) : CatRepository {
 
-    override fun getRandomCat(): Single<CatImage> {
+    override fun getRandomCat(): Single<Cat> {
         return appConfig.shouldRefreshRemoteData()
             .flatMap {
                 if (it) getRemoteRandomCat()
@@ -26,9 +26,9 @@ class CatRepositoryImpl @Inject constructor(
             }
     }
 
-    override fun getLocalRandomCat(): CatImage = dao.getAll().random()
+    override fun getLocalRandomCat(): Cat = dao.getAll().random()
 
-    override fun getRemoteRandomCat(): Single<CatImage> =
+    override fun getRemoteRandomCat(): Single<Cat> =
         service.getRandomCat()
             .doOnError {
                 logError("Random cat remote error:", it)
@@ -40,12 +40,10 @@ class CatRepositoryImpl @Inject constructor(
                 Single.just(cat)
             }
 
-    override fun getCatsList(limit: Int, page: Int): Single<List<CatImage>> =
+    override fun getCatsList(limit: Int, page: Int): Single<List<Cat>> =
         service.getRandomCat(limit, page)
-            .doOnError {
-                logError("Cats list remote error:", it)
-            }.flatMap { catsListResponse ->
-                val catsList: MutableList<CatImage> = mutableListOf()
+            .flatMap { catsListResponse ->
+                val catsList: MutableList<Cat> = mutableListOf()
                 catsListResponse.forEach {
                     catsList.add(catMapper.map(it))
                 }

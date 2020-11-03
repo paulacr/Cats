@@ -1,6 +1,6 @@
 package com.paulacr.cats
 
-import com.paulacr.cats.data.model.CatImage
+import com.paulacr.cats.data.model.Cat
 import com.paulacr.cats.data.repository.CatRepository
 import com.paulacr.cats.ui.list.CatsListViewModel
 import io.reactivex.Single
@@ -31,16 +31,16 @@ class CatsListViewModelTest {
     @Test
     fun showGetRandomCat() {
 
-        val catImage = CatImage("1", "", emptyList(), emptyList())
+        val catImage = Cat("1", "", emptyList(), emptyList())
         mockitoWhen(repository.getRandomCat()).thenReturn(Single.just(catImage))
 
-        val observable: Single<CatImage> = repository.getRandomCat()
-        val observer: TestObserver<CatImage> = TestObserver()
+        val observable: Single<Cat> = repository.getRandomCat()
+        val observer: TestObserver<Cat> = TestObserver()
         observable.subscribe(observer)
 
         observer.assertComplete()
             .assertNoErrors()
-            .assertValue(CatImage("1", "", emptyList(), emptyList()))
+            .assertValue(Cat("1", "", emptyList(), emptyList()))
     }
 
     @Test
@@ -49,8 +49,8 @@ class CatsListViewModelTest {
         mockitoWhen(repository.getRandomCat()).thenReturn(
             Single.error(Exception()))
 
-        val observable: Single<CatImage> = repository.getRandomCat()
-        val observer: TestObserver<CatImage> = TestObserver()
+        val observable: Single<Cat> = repository.getRandomCat()
+        val observer: TestObserver<Cat> = TestObserver()
         observable.subscribe(observer)
 
         observer

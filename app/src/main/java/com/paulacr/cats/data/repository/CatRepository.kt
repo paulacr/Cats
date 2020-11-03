@@ -1,15 +1,15 @@
 package com.paulacr.cats.data.repository
 
-import com.paulacr.cats.data.model.CatImage
+import com.paulacr.cats.data.model.Cat
 import io.reactivex.Single
 
 interface CatRepository {
 
-    fun getRandomCat(): Single<CatImage>
+    fun getRandomCat(): Single<Cat>
 
-    fun getLocalRandomCat(): CatImage
+    fun getLocalRandomCat(): Cat
 
-    fun getRemoteRandomCat(): Single<CatImage>
+    fun getRemoteRandomCat(): Single<Cat>
 
-    fun getCatsList(limit: Int, page: Int): Single<List<CatImage>>
+    fun getCatsList(limit: Int, page: Int): Single<List<Cat>>
 }

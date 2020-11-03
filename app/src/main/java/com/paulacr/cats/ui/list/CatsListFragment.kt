@@ -1,17 +1,17 @@
 package com.paulacr.cats.ui.list
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.paulacr.cats.R
+import com.paulacr.cats.data.model.Cat
 import com.paulacr.cats.databinding.FragmentCatsListBinding
 import com.paulacr.cats.ui.CatsApplication
-import com.paulacr.cats.ui.ViewState
 import javax.inject.Inject
 
 class CatsListFragment : Fragment() {
@@ -45,14 +45,17 @@ class CatsListFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.catsListLiveData.observe(viewLifecycleOwner, Observer {
-
-            when (it) {
-                is ViewState.Success -> {
-                    Log.i("Log cats", "-> $it.data")
-                }
-                is ViewState.Failure -> {}
-                else -> {}
-            }
+            setupCatsList(it)
         })
     }
+
+    private fun setupCatsList(catsList: List<Cat>) {
+        val adapter = CatAdapter(catsList, onCatClicked())
+        binding.rvCatsList.layoutManager = LinearLayoutManager(context)
+        binding.rvCatsList.adapter = adapter
+    }
+
+    private fun onCatClicked(): (Int, Cat) -> Unit =
+        { position: Int, cat: Cat ->
+        }
 }

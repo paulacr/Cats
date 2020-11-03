@@ -15,10 +15,10 @@ buildscript {
     ext.RxJavaAdapterVersion = "2.7.1"
     ext.rxAndroidVersion = '2.1.1'
     ext.OkhttpVersion = '4.3.1'
-    ext.picassoVersion = "1.0.0"
     ext.roomVersion = "2.2.5"
     ext.mockitoVersion = "2.23.0"
     ext.circleImageViewVersion = "3.1.0"
+    ext.glideVersion = "4.11.0"
 
     repositories {
         google()

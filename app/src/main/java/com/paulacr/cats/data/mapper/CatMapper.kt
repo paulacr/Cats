@@ -1,16 +1,16 @@
 package com.paulacr.cats.data.mapper
 
 import com.paulacr.cats.data.model.Breed
-import com.paulacr.cats.data.model.CatImage
+import com.paulacr.cats.data.model.Cat
 import com.paulacr.cats.data.model.CatImageResponse
 import com.paulacr.cats.data.model.Category
 import okhttp3.internal.toImmutableList
 
 class CatMapper {
 
-    fun map(catImageResponse: CatImageResponse): CatImage {
+    fun map(catImageResponse: CatImageResponse): Cat {
 
-        return CatImage(
+        return Cat(
             catImageResponse.id,
             catImageResponse.url,
             getBreeds(catImageResponse),
