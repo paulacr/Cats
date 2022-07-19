@@ -6,21 +6,21 @@ plugins {
 }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 32
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.paulacr.cats"
         minSdkVersion 28
-        targetSdkVersion 29
+        targetSdkVersion 32
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildFeatures {
-            dataBinding true
             viewBinding true
+            compose true
         }
 
         buildConfigField 'String', 'BASE_URL', '"https://api.thecatapi.com/v1/"'
@@ -39,6 +39,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.1.1'
     }
 }
 
@@ -60,7 +63,7 @@ dependencies {
     // Http Requests
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    implementation "com.squareup.retrofit2:adapter-rxjava:$RxJavaAdapterVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$RxJavaAdapterVersion"
     implementation "com.squareup.okhttp3:okhttp:$OkhttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$OkhttpVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
@@ -72,12 +75,22 @@ dependencies {
 
     // Image Loading
     implementation "com.squareup.picasso:picasso:$picassoVersion"
+    implementation "io.coil-kt:coil-compose:$coilVersion"
+
+    // Compose
+    implementation "androidx.activity:activity-compose:$composeActivityVersion"
+    implementation "androidx.compose.material:material:$composeVersion"
+    implementation "androidx.compose.animation:animation:$composeVersion"
+    implementation "androidx.compose.ui:ui-tooling:$composeVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$composeViewModelVersion"
+    implementation "androidx.compose.runtime:runtime-rxjava2:$composeVersion"
 
     // Tests
     testImplementation "junit:junit:$jUnitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidTestJUnitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoCoreVersion"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.1.1'
 }
 
 ktlint {

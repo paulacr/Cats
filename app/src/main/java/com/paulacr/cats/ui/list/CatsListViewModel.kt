@@ -1,6 +1,8 @@
 package com.paulacr.cats.ui.list
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
+import com.paulacr.cats.data.model.CatImage
 import com.paulacr.cats.data.repository.CatRepository
 import com.paulacr.cats.ui.BaseViewModel
 import com.paulacr.cats.utils.logError
@@ -21,6 +23,4 @@ class CatsListViewModel @Inject constructor(private val repository: CatRepositor
             .doOnError {
                 logError("Random cat", it)
             }
-            .subscribe()
-            .addToDisposables()
 }
