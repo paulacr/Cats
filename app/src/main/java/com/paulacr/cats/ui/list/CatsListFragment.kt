@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rxjava2.subscribeAsState
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
-import com.paulacr.cats.R
-import com.paulacr.cats.databinding.FragmentCatsListBinding
+import coil.compose.AsyncImage
 import com.paulacr.cats.ui.CatsApplication
 import javax.inject.Inject
 
@@ -15,7 +17,6 @@ class CatsListFragment : Fragment() {
 
     @Inject
     lateinit var viewModel: CatsListViewModel
-    private lateinit var binding: FragmentCatsListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,16 +27,34 @@ class CatsListFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_cats_list, container, false)
-
-        return binding.root
+    ): View {
+        val view = ComposeView(requireContext())
+        view.layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+        view.setContent {
+            ListOfCats(viewModel)
+        }
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel = viewModel
         viewModel.getRandomCat()
     }
 }
+
+@Composable
+private fun ListOfCats(viewModel: CatsListViewModel) {
+    val dataExample by viewModel.getRandomCat().subscribeAsState(initial = null)
+    if (dataExample != null) {
+        AsyncImage(
+            model = dataExample!!.url,
+            contentDescription = null
+        )
+    }
+}
+
+
+
