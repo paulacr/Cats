@@ -7,15 +7,15 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("images/search")
-    fun getRandomCat(
-        @Query("limit") limit: Int? = null,
-        @Query("page") page: Int? = null
-    ): Single<List<CatImageResponse>>
-
 //    @GET("images/search")
-//    fun getCatsList(
-//        @Query("limit") limit: Int? = 1,
-//        @Query("page") page: Int? = 0
+//    fun getRandomCat(
+//        @Query("limit") limit: Int? = null,
+//        @Query("page") page: Int? = null
 //    ): Single<List<CatImageResponse>>
+
+    @GET("images/search")
+    fun getCatsList(
+        @Query("limit") limit: Int? = 1,
+        @Query("page") page: Int? = 0
+    ): Single<List<CatImageResponse>>
 }

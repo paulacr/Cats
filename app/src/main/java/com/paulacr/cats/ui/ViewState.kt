@@ -1,12 +1,13 @@
 package com.paulacr.cats.ui
 
+import com.paulacr.cats.data.model.Cat
 import java.lang.Exception
 
 sealed class ViewState {
 
-    class Success<T>(val data: T) : ViewState()
+    data class Success(val data: List<Cat>) : ViewState()
 
-    class Failure(exception: Exception) : ViewState()
+    data class Failure(val exception: Exception) : ViewState()
 
     object Loading : ViewState()
 }

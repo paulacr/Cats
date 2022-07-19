@@ -5,11 +5,11 @@ import io.reactivex.Single
 
 interface CatRepository {
 
-    fun getRandomCat(): Single<Cat>
+//    fun getRandomCat(): Single<Cat>
 
-    fun getLocalRandomCat(): Cat
+//    fun getLocalRandomCat(): Cat
 
-    fun getRemoteRandomCat(): Single<Cat>
+//    fun getRemoteRandomCat(): Single<Cat>
 
     fun getCatsList(limit: Int, page: Int): Single<List<Cat>>
 }
